@@ -1,4 +1,3 @@
-import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
 import 'package:ekart/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: primaryColor),
+       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
