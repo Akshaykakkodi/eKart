@@ -16,6 +16,7 @@ class ProductModel {
     Category? category;
     String? image;
     Rating? rating;
+    
 
     ProductModel({
         this.id,
@@ -25,6 +26,7 @@ class ProductModel {
         this.category,
         this.image,
         this.rating,
+        
     });
 
     factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -35,6 +37,7 @@ class ProductModel {
         category: categoryValues.map[json["category"]]!,
         image: json["image"],
         rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
+        
     );
 
     Map<String, dynamic> toJson() => {

@@ -1,75 +1,56 @@
-import 'package:ekart/constants/app_constants.dart';
+import 'package:ekart/products/controller/product_controller.dart';
+import 'package:ekart/products/view/cart_screen.dart';
+import 'package:ekart/products/view/categories.dart';
+import 'package:ekart/products/view/home_screen.dart';
+import 'package:ekart/products/view/wishlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List pages=[const HomeScreen(),const WishlistScreen(),const Categories()];
+  
     
-    return  Scaffold(
-      appBar: AppBar(
-        actions:const [
-          CircleAvatar(
-            radius: 22.5,
-            backgroundColor: Color(0xffF5F6FA),
-            child:  Center(child: Icon(Icons.shopping_bag_outlined)),
-          ),
-          SizedBox(width: 20,)
-         
-        ],
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding:const EdgeInsets.only(top: 20,right: 20,left: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Welcome to eKart",style: TextStyle(
-              fontSize: 15,
-              color: Color(0xff8F959E)
+    return  Consumer<ProductController>(
+      builder: (context, value, child) => 
+       Scaffold(
+        appBar: AppBar(
+          actions: [
+            CircleAvatar(
+              radius: 22.5,
+              backgroundColor:const Color(0xffF5F6FA),
+              child:  Center(child: Image.asset("assets/icons/bag.png",scale: 4,) ),
             ),
-            ),
-           const SizedBox(height: 20,),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor:const Color(0xffF5F6FA),
-                      constraints:const BoxConstraints(
-                        maxHeight: 50,
-                      ),
-                      prefixIcon:const Icon(Icons.search,color: Color(0xff8F959E),),
-                      hintText: "Search",
-                      contentPadding:const EdgeInsets.all(5),
-                      hintStyle:const TextStyle(color: Color(0xff8F959E)),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      )
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10,),
-
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(10),
-                     color: primaryColor
-                  ),
-                  child:const Icon(Icons.mic_outlined,color: Colors.white,),
-                )
-              ],
-            )
+           const SizedBox(width: 20,)
+           
           ],
         ),
-      )
+        body: pages.elementAt(value.selectedIndex),
+    
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex:value.selectedIndex ,
+          onTap: (index) {
+            value.oNbottomNavigationSelection(index);
+          },
+          items: [
+            BottomNavigationBarItem(icon: Image.asset("assets/icons/home.png",scale: 4,),
+            backgroundColor: Colors.white,
+            label: "Home"
+            ),
+            BottomNavigationBarItem(icon: Image.asset("assets/icons/wishlist.png",scale: 4,),
+            backgroundColor: Colors.white,
+            label: "Wishlist"
+            ),
+           const BottomNavigationBarItem(icon:Icon(Icons.category_outlined,color: Color(0xff8F959E),),
+            backgroundColor: Colors.white,
+            label: "Category"
+            ),
+          ]
+          ),
+      ),
     );
   }
 }
