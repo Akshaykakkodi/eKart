@@ -38,6 +38,7 @@ dependencies:
   provider: 
   dio: 
   lottie: ^2.7.0
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:

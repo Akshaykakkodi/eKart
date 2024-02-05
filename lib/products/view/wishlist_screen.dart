@@ -82,7 +82,8 @@ class WishlistScreen extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  value.wishListItem(value.wishListItems[index]);
+                                  showAlert(context,index);
+                                  
                                 },
                                 child: Container(
                                   padding:const EdgeInsets.all(5),
@@ -119,3 +120,45 @@ class WishlistScreen extends StatelessWidget {
     );
   }
 }
+ 
+
+ showAlert(BuildContext context, int index){
+  showModalBottomSheet(
+    context: context,
+     builder: (context) {
+       return SizedBox(
+        height: 150,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Remove Item from wishlist"),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                     Provider.of<ProductController>(context,listen: false).wishListItem(Provider.of<ProductController>(context,listen: false).wishListItems[index]);
+                     Navigator.pop(context);
+                  },
+                   child:const Text("Remove",style: TextStyle(color: Colors.red),)),
+                   const SizedBox(width: 20,),
+
+                   ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                 child: const Text("cancel"))
+              ],
+            ),
+               
+
+               
+          ],
+        ),
+       );
+
+     },
+     );
+ }

@@ -112,10 +112,12 @@ class HomeScreen extends StatelessWidget {
                                             child: InkWell(
                                               onTap: () {
                                                 value.wishListItem(value.productList[index]);
+                                                showSnacbar(context,index);
                                               },
                                               child: Image.asset(
                                                 "assets/icons/wishlist.png",
                                               scale: 4,
+                                              color: value.isWishListed[index]?Colors.red:Colors.grey,
                                               ),
                                             ),
                                           ),
@@ -141,4 +143,11 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+
+showSnacbar(BuildContext context, int index){
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content:Provider.of<ProductController>(context,listen: false).isWishListed[index]==true?const Text("Item Added to wishlist"):const Text("Item removed from wishlist"))
+  );
 }
