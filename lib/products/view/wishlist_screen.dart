@@ -1,3 +1,4 @@
+import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,73 +42,80 @@ class WishlistScreen extends StatelessWidget {
                       mainAxisSpacing: 10
                       ),
                   itemBuilder: (context, index) {
-                    return SizedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                                width: 150,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffF5EBF1),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                            value.wishListItems[index].image
-                                                .toString(),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom:12.0),
+                      child: SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                  width: 150,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffF5EBF1),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                              value.wishListItems[index].image
+                                                  .toString(),
+                                            ),
+                                            fit: BoxFit.fill),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Colors.grey,
+                                              blurRadius: 5,
+                                              offset: Offset(0, 3)),
+                                        ],
+                                      ),
+                                     
+                                          )
                                           ),
-                                          fit: BoxFit.fill),
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 5,
-                                            offset: Offset(0, 3)),
-                                      ],
-                                    ),
-                                   
-                                        )
-                                        ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(value.wishListItems[index].title.toString()),
-                          Text(
-                            "\$${value.wishListItems[index].price}",
-                            style:const TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showAlert(context,index);
-                                  
-                                },
-                                child: Container(
-                                  padding:const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.red
-                                  ),
-                                  child:const Text("Remove",style: TextStyle(color: Colors.white),),
-                                ),
-                              ),
-                             const Spacer(),
-                               Container(
-                            padding:const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.green[400]
                             ),
-                            child:const Text("Add to cart",style: TextStyle(color: Colors.white),),
-                          ),
-                            ],
-                          ),
-
-                          
-                        ],
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(value.wishListItems[index].title.toString()),
+                            Text(
+                              "\$${value.wishListItems[index].price}",
+                              style:const TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    showAlert(context,index);
+                                    
+                                  },
+                                  child: Container(
+                                    padding:const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey)
+                                      
+                                    ),
+                                    child:Icon(Icons.delete_sharp)
+                                  ),
+                                ),
+                              //  const Spacer(),
+                              const SizedBox(width: 3,),
+                                 Expanded(
+                                   child: Container(
+                                                             padding:const EdgeInsets.all(5),
+                                                             decoration: BoxDecoration(
+                                                               borderRadius: BorderRadius.circular(10),
+                                                               color: primaryColor
+                                                             ),
+                                                             child:Center(child: const Text("Add to cart",style: TextStyle(color: Colors.white),)),
+                                                           ),
+                                 ),
+                              ],
+                            ),
+                    
+                            
+                          ],
+                        ),
                       ),
                     );
                   },
