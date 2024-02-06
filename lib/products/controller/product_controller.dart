@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 
 class ProductController extends ChangeNotifier {
   final Dio dio = Dio();
-  List<ProductModel> productList = [];
-  int selectedIndex = 0;
+  List<ProductModel> productList = [];  // list of products fetched from api
+  int selectedIndex = 0; // selected index of home bottom navigation
   bool isLoading = false;
-  List<ProductModel> wishListItems = [];
-  List<bool> isWishListed = [];
-  List<CartItem> cartItems = [];
-  List<ProductModel> searchResult=[];
-    // int get cartCount => cartItems.fold(0, (sum, item) => sum + cartItems.length);
-    int cartCount=0;
+  List<ProductModel> wishListItems = []; // list of wishlisted items
+  List<bool> isWishListed = []; 
+  List<CartItem> cartItems = []; // list of items added to cart
+  List<ProductModel> searchResult = []; // list of products from search result
+  // int get cartCount => cartItems.fold(0, (sum, item) => sum + cartItems.length);
+  int cartCount = 0;
   List<int> cartItemCount = [];
 
   void oNbottomNavigationSelection(int value) {
@@ -21,6 +21,9 @@ class ProductController extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
+// fetch products from api
   fetchProducts() async {
     try {
       isLoading = true;
@@ -30,8 +33,7 @@ class ProductController extends ChangeNotifier {
             response.data.map((x) => ProductModel.fromJson(x)));
         isWishListed = List.generate(productList.length, (index) => false);
         // cartItemCount = List.generate(productList.length, (index) => 0);
-        cartCount=cartItems.length;
-        
+        cartCount = cartItems.length;
       } else {
         log("something went wrong");
       }
@@ -43,6 +45,9 @@ class ProductController extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
+// function to wishlist a item
   void wishListItem(ProductModel product) {
     final productId = product.id;
 
@@ -65,56 +70,66 @@ class ProductController extends ChangeNotifier {
     }
   }
 
-   void addToCart(ProductModel product) {
-    final existingItem = cartItems.firstWhere((item) => item.product.id == product.id, orElse: () => CartItem(product: product, quantity: 0));
+
+
+// function to add a item to cart
+  void addToCart(ProductModel product) {
+    final existingItem = cartItems.firstWhere(
+        (item) => item.product.id == product.id,
+        orElse: () => CartItem(product: product, quantity: 0));
     if (existingItem.quantity == 0) {
       product.isInCart = true;
       cartItems.add(CartItem(product: product, quantity: 1));
-       cartCount=cartItems.length;
+      cartCount = cartItems.length;
     } else {
       existingItem.quantity++;
-         product.cartQuantity = existingItem.quantity;
-          cartCount=cartItems.length;
+      product.cartQuantity = existingItem.quantity;
+      cartCount = cartItems.length;
     }
     notifyListeners();
   }
 
 
 
+// function to decrement itemquantity of a product
   decrementCount(ProductModel product) {
-      final existingItem = cartItems.firstWhere((item) => item.product.id == product.id, orElse: () => CartItem(product: product, quantity: 0));
+    final existingItem = cartItems.firstWhere(
+        (item) => item.product.id == product.id,
+        orElse: () => CartItem(product: product, quantity: 0));
 
     if (existingItem.quantity > 0) {
       existingItem.quantity--;
       product.cartQuantity = existingItem.quantity;
 
       if (existingItem.quantity == 0) {
-       
         cartItems.remove(existingItem);
-         product.isInCart = false;
-          cartCount=cartItems.length;
+        product.isInCart = false;
+        cartCount = cartItems.length;
       }
 
       notifyListeners();
     }
-  
   }
 
+
+// funtion to remove a item from cart
   removeFromCart(int index) {
     cartItems.removeAt(index);
     notifyListeners();
   }
 
-searchProduct(String searchQuery){
-searchResult=productList.where((element) => element.title!.toLowerCase().contains(searchQuery.toLowerCase())).toList();
-notifyListeners();
+
+// function to search a product 
+  searchProduct(String searchQuery) {
+    searchResult = productList
+        .where((element) =>
+            element.title!.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+    notifyListeners();
+  }
+
 }
 
- 
-
-
-  
-}
 
 
 class CartItem {
