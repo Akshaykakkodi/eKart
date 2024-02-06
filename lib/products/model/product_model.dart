@@ -11,6 +11,8 @@ class ProductModel {
   String? category;
   String? image;
   Rating? rating;
+  bool isInCart;
+  int cartQuantity;
   
   ProductModel({
     this.id,
@@ -20,6 +22,8 @@ class ProductModel {
     this.category,
     this.image,
     this.rating,
+    this.isInCart=false,
+    this.cartQuantity=0
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(

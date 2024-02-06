@@ -1,6 +1,9 @@
 import 'package:ekart/constants/app_constants.dart';
+import 'package:ekart/products/controller/product_controller.dart';
 import 'package:ekart/products/model/product_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductScreen extends StatelessWidget {
   final ProductModel product;
@@ -66,16 +69,30 @@ class ProductScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 60,
-                  width: 200,
-                  
-                  decoration: BoxDecoration(
+                CupertinoButton(
+                  onPressed: () {
                     
-                    borderRadius: BorderRadius.circular(20),
-                    color: primaryColor
+                  },
+                  padding: null,
+                  minSize: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      Provider.of<ProductController>(context,listen: false).addToCart(product);
+                      showAlert(context);
+                
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 200,
+                      
+                      decoration: BoxDecoration(
+                        
+                        borderRadius: BorderRadius.circular(20),
+                        color: primaryColor
+                      ),
+                      child:const Center(child: Text("Add to cart",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white),)),
+                    ),
                   ),
-                  child:const Center(child: Text("Add to cart",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white),)),
                 ),
               ],
             ),
@@ -86,4 +103,8 @@ class ProductScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+showAlert(BuildContext context){
+ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Item Added to cart")));
 }
