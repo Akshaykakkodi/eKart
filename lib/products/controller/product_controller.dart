@@ -15,6 +15,9 @@ class ProductController extends ChangeNotifier {
   // int get cartCount => cartItems.fold(0, (sum, item) => sum + cartItems.length);
   int cartCount = 0;
   List<int> cartItemCount = [];
+  num subTotal=0;
+  num toatalAmount=0;
+  num deliveryCharge=20;
 
   void oNbottomNavigationSelection(int value) {
     selectedIndex = value;
@@ -63,7 +66,7 @@ class ProductController extends ChangeNotifier {
         wishListItems.removeWhere((item) => item.id == productId);
 
         int index = productList.indexOf(product);
-        // isWishListed[index] = false;
+        isWishListed[index] = false;
         // product.isWishListed=false;
       }
       notifyListeners();
@@ -128,7 +131,34 @@ class ProductController extends ChangeNotifier {
     notifyListeners();
   }
 
+num calculateSubTotalPrice() {
+    subTotal = 0;
+    for (var cartItem in cartItems) {
+      subTotal += cartItem.product.price! * cartItem.quantity;
+    }
+    return subTotal;
+  }
+
+ num calculateTotalPrice(){
+    toatalAmount=0;
+    toatalAmount=subTotal+deliveryCharge;
+    return toatalAmount;
+  }
+
+  void clear(){
+cartItems.clear();
+
+  }
+
+  
+
+ 
 }
+
+
+
+
+
 
 
 

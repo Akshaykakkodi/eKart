@@ -11,9 +11,9 @@ class ProductSearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController=TextEditingController();
-    return Scaffold(
+    return Scaffold(                                                                                
       appBar: AppBar(),
-      body:Provider.of<ProductController>(context).searchResult.isEmpty? Center(child: Text("No Results found!")) :Container(
+      body:Provider.of<ProductController>(context).searchResult.isEmpty? const Center(child: Text("No Results found!")) :Container(
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
@@ -131,7 +131,7 @@ class ProductSearchScreen extends StatelessWidget {
                                                     showSnacbar(context,index);
                                                   },
                                                  
-                                                  child:value.isWishListed[index]?Icon(Icons.favorite,color: Colors.red,): Image.asset(
+                                                  child:value.isWishListed[index]?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
                                                     "assets/icons/wishlist.png",
                                                   scale: 4,
                                                   // color: value.isWishListed[index]?Colors.red:Colors.grey,

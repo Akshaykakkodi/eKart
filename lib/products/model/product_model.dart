@@ -12,7 +12,7 @@ class ProductModel {
   String? image;
   Rating? rating;
   bool isInCart;
-  int cartQuantity;
+  num cartQuantity;
   
   ProductModel({
     this.id,

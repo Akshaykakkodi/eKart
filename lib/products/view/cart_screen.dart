@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
+import 'package:ekart/products/view/order_placed_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,12 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // log(Provider.of<ProductController>(context).cartItems.first.quantity.toString());
+   
+    var amount =
+        Provider.of<ProductController>(context).calculateSubTotalPrice();
+    var totalAmount =
+        Provider.of<ProductController>(context).calculateTotalPrice();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -23,10 +27,10 @@ class CartScreen extends StatelessWidget {
         builder: (context, value, child) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: value.cartItems.isEmpty
-              ? Center(child: Text("No items in cart"))
+              ? const Center(child: Text("No items in cart"))
               : ListView(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 300,
                       child: ListView.builder(
                         itemCount: value.cartItems.length,
@@ -83,7 +87,7 @@ class CartScreen extends StatelessWidget {
                                                 value.decrementCount(value
                                                     .cartItems[index].product);
                                               },
-                                              child: CircleAvatar(
+                                              child: const CircleAvatar(
                                                 backgroundColor: Colors.white,
                                                 radius: 12.5,
                                                 child: Icon(
@@ -92,13 +96,13 @@ class CartScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             Text(value.cartItems[index].product
                                                 .cartQuantity
                                                 .toString()),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             InkWell(
@@ -106,7 +110,7 @@ class CartScreen extends StatelessWidget {
                                                 value.addToCart(value
                                                     .cartItems[index].product);
                                               },
-                                              child: CircleAvatar(
+                                              child: const CircleAvatar(
                                                 backgroundColor: Colors.white,
                                                 radius: 12.5,
                                                 child: Icon(
@@ -115,14 +119,12 @@ class CartScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Spacer(),
+                                            const Spacer(),
                                             InkWell(
                                               onTap: () {
-                                                
                                                 value.removeFromCart(index);
-                                                 
                                               },
-                                              child: CircleAvatar(
+                                              child: const CircleAvatar(
                                                 backgroundColor: Colors.white,
                                                 radius: 12.5,
                                                 child: Icon(
@@ -143,42 +145,42 @@ class CartScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Delivery Address",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    Text(
+                    const Text(
                         "Menalil thazham kakkodi Kozhikode Kerala india pin:673611"),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Order Info",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "Sub total",
                           style: TextStyle(color: Color(0xff8F959E)),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
-                          "\$110",
-                          style: TextStyle(
+                          "\$$amount",
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           "Delivery charge",
@@ -192,19 +194,19 @@ class CartScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "Total",
                           style: TextStyle(color: Color(0xff8F959E)),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
-                          "\$130",
-                          style: TextStyle(
+                          "\$$totalAmount",
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         )
                       ],
@@ -213,15 +215,21 @@ class CartScreen extends StatelessWidget {
                 ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: primaryColor,
-        child: Center(
-            child: Text(
-          "Checkout",
-          style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
-        )),
+      bottomNavigationBar: InkWell(
+        onTap: () {
+          Provider.of<ProductController>(context,listen: false).cartItems.clear();
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const OrderPlacedScreen(),));
+        },
+        child: Container(
+          height: 60,
+          color: primaryColor,
+          child: const Center(
+              child: Text(
+            "Checkout",
+            style: TextStyle(
+                fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
+          )),
+        ),
       ),
     );
   }
