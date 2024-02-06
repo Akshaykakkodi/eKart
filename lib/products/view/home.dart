@@ -18,27 +18,32 @@ class Home extends StatelessWidget {
       const Categories()
     ];
 
+    
+
     return Consumer<ProductController>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
           actions: [
-            CircleAvatar(
-              radius: 22.5,
-              backgroundColor: const Color(0xffF5F6FA),
-              child: Center(
-                
-                  child: badges.Badge(
-                    badgeContent: Text(value.cartCount.toString(),style: TextStyle(fontSize: 7,color: Colors.white),),
-                    badgeAnimation:const  badges.BadgeAnimation.slide(),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen(),));
-                    },
-                    child: Image.asset(
-                                  "assets/icons/bag.png",
-                                  scale: 4,
-                                ),
-                  )
-                  ),
+            InkWell(
+              onTap: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const CartScreen(),));
+              },
+              child: CircleAvatar(
+                radius: 22.5,
+                backgroundColor: const Color(0xffF5F6FA),
+                child: Center(
+                  
+                    child: badges.Badge(
+                      badgeContent: Text(value.cartCount.toString(),style: TextStyle(fontSize: 7,color: Colors.white),),
+                      badgeAnimation:const  badges.BadgeAnimation.slide(),
+                      
+                      child: Image.asset(
+                                    "assets/icons/bag.png",
+                                    scale: 4,
+                                  ),
+                    )
+                    ),
+              ),
             ),
             const SizedBox(
               width: 20,

@@ -1,9 +1,11 @@
 import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
 import 'package:ekart/products/model/product_model.dart';
+import 'package:ekart/products/view/cart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class ProductScreen extends StatelessWidget {
   final ProductModel product;
@@ -16,10 +18,29 @@ class ProductScreen extends StatelessWidget {
      
       appBar: AppBar(
         actions: [
-           CircleAvatar(
-              radius: 22.5,
-              backgroundColor:const Color(0xffF5F6FA),
-              child:  Center(child: Image.asset("assets/icons/bag.png",scale: 4,) ),
+           InkWell(
+              onTap: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) =>const CartScreen(),));
+              },
+              child: Consumer<ProductController>(
+                builder: (context, value, child) => 
+                 CircleAvatar(
+                  radius: 22.5,
+                  backgroundColor: const Color(0xffF5F6FA),
+                  child: Center(
+                    
+                      child: badges.Badge(
+                        badgeContent: Text(value.cartCount.toString(),style:const TextStyle(fontSize: 7,color: Colors.white),),
+                        badgeAnimation:const  badges.BadgeAnimation.slide(),
+                        
+                        child: Image.asset(
+                                      "assets/icons/bag.png",
+                                      scale: 4,
+                                    ),
+                      )
+                      ),
+                ),
+              ),
             ),
            const SizedBox(width: 20,)
         ],

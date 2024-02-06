@@ -1,19 +1,19 @@
 import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
+import 'package:ekart/products/view/home_screen.dart';
 import 'package:ekart/products/view/product_screen.dart';
-import 'package:ekart/products/view/product_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class ProductSearchScreen extends StatelessWidget {
+  const ProductSearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController=TextEditingController();
-    Provider.of<ProductController>(context, listen: false).fetchProducts();
     return Scaffold(
-      body: Container(
+      appBar: AppBar(),
+      body:Provider.of<ProductController>(context).searchResult.isEmpty? Center(child: Text("No Results found!")) :Container(
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                         prefixIcon: InkWell(
                           onTap: () {
                             Provider.of<ProductController>(context,listen: false).searchProduct(searchController.text);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>const ProductSearchScreen(),));
+                            
                           },
                           child: const Icon(
                             Icons.search,
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                 child: Consumer<ProductController>(
               builder: (context, value, child) => SizedBox(
                 child: GridView.builder(
-                  itemCount: value.productList.length,
+                  itemCount: value.searchResult.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 3 / 5,
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductScreen(product: value.productList[index],),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductScreen(product: value.searchResult[index],),));
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(bottom:12.0),
@@ -104,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                                           color: const Color(0xffF5EBF1),
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                value.productList[index].image
+                                                value.searchResult[index].image
                                                     .toString(),
                                               ),
                                               fit: BoxFit.fill),
@@ -143,9 +143,9 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(value.productList[index].title.toString()),
+                              Text(value.searchResult[index].title.toString()),
                               Text(
-                                "\$${value.productList[index].price}",
+                                "\$${value.searchResult[index].price}",
                                 style:const TextStyle(fontWeight: FontWeight.w500),
                               )
                             ],
@@ -160,17 +160,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-
-
-     
-
     );
   }
-}
-
-
-showSnacbar(BuildContext context, int index){
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content:Provider.of<ProductController>(context,listen: false).isWishListed[index]==true?const Text("Item Added to wishlist"):const Text("Item removed from wishlist"))
-  );
 }

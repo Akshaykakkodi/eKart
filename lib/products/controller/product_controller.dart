@@ -11,7 +11,9 @@ class ProductController extends ChangeNotifier {
   List<ProductModel> wishListItems = [];
   List<bool> isWishListed = [];
   List<CartItem> cartItems = [];
-    int get cartCount => cartItems.fold(0, (sum, item) => sum + item.quantity);
+  List<ProductModel> searchResult=[];
+    // int get cartCount => cartItems.fold(0, (sum, item) => sum + cartItems.length);
+    int cartCount=0;
   List<int> cartItemCount = [];
 
   void oNbottomNavigationSelection(int value) {
@@ -27,7 +29,8 @@ class ProductController extends ChangeNotifier {
         productList = List<ProductModel>.from(
             response.data.map((x) => ProductModel.fromJson(x)));
         isWishListed = List.generate(productList.length, (index) => false);
-        cartItemCount = List.generate(productList.length, (index) => 0);
+        // cartItemCount = List.generate(productList.length, (index) => 0);
+        cartCount=cartItems.length;
         
       } else {
         log("something went wrong");
@@ -55,7 +58,7 @@ class ProductController extends ChangeNotifier {
         wishListItems.removeWhere((item) => item.id == productId);
 
         int index = productList.indexOf(product);
-        isWishListed[index] = false;
+        // isWishListed[index] = false;
         // product.isWishListed=false;
       }
       notifyListeners();
@@ -67,9 +70,11 @@ class ProductController extends ChangeNotifier {
     if (existingItem.quantity == 0) {
       product.isInCart = true;
       cartItems.add(CartItem(product: product, quantity: 1));
+       cartCount=cartItems.length;
     } else {
       existingItem.quantity++;
          product.cartQuantity = existingItem.quantity;
+          cartCount=cartItems.length;
     }
     notifyListeners();
   }
@@ -87,6 +92,7 @@ class ProductController extends ChangeNotifier {
        
         cartItems.remove(existingItem);
          product.isInCart = false;
+          cartCount=cartItems.length;
       }
 
       notifyListeners();
@@ -94,16 +100,17 @@ class ProductController extends ChangeNotifier {
   
   }
 
-  removeFromCart(ProductModel product) {
-    cartItems.remove(product);
+  removeFromCart(int index) {
+    cartItems.removeAt(index);
     notifyListeners();
   }
 
+searchProduct(String searchQuery){
+searchResult=productList.where((element) => element.title!.toLowerCase().contains(searchQuery.toLowerCase())).toList();
+notifyListeners();
+}
 
-
-  getCount(ProductModel product){
-
-  }
+ 
 
 
   
