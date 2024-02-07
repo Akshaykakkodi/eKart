@@ -171,7 +171,7 @@ class CartScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "\$$amount",
+                          "\$${amount.toStringAsFixed(2)}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         )
@@ -205,7 +205,7 @@ class CartScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "\$$totalAmount",
+                          "\$${totalAmount.toStringAsFixed(2)}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         )
@@ -215,20 +215,26 @@ class CartScreen extends StatelessWidget {
                 ),
         ),
       ),
-      bottomNavigationBar: InkWell(
-        onTap: () {
-          Provider.of<ProductController>(context,listen: false).cartItems.clear();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const OrderPlacedScreen(),));
-        },
-        child: Container(
-          height: 60,
-          color: primaryColor,
-          child: const Center(
-              child: Text(
-            "Checkout",
-            style: TextStyle(
-                fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
-          )),
+      bottomNavigationBar: Consumer<ProductController>(
+        builder: (context, value, child) => 
+         InkWell(
+          onTap: () {
+            if(value.cartItems.isNotEmpty){
+           value.clear();
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const OrderPlacedScreen(),));
+            }
+           
+          },
+          child: Container(
+            height: 60,
+            color: primaryColor,
+            child: const Center(
+                child: Text(
+              "Checkout",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
+            )),
+          ),
         ),
       ),
     );
