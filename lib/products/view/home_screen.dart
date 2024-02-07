@@ -131,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                                                     showSnacbar(context,index);
                                                   },
                                                  
-                                                  child:value.isWishListed[index]?Icon(Icons.favorite,color: Colors.red,): Image.asset(
+                                                  child:value.isWishListed[index]?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
                                                     "assets/icons/wishlist.png",
                                                   scale: 4,
                                                   // color: value.isWishListed[index]?Colors.red:Colors.grey,

@@ -1,4 +1,4 @@
-import 'package:ekart/constants/app_constants.dart';
+
 import 'package:ekart/products/view/electronics_screen.dart';
 import 'package:ekart/products/view/jwellery_screen.dart';
 import 'package:ekart/products/view/men_clothing_screen.dart';
@@ -10,7 +10,7 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 4,
       child: Scaffold(
         body: Column(

@@ -32,7 +32,6 @@ class ProductModel {
         price: json["price"]?.toDouble(),
         description: json["description"],
         category: json["category"],
-        // category: categoryValues.map[json["category"]]!,
         image: json["image"],
         rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
       );

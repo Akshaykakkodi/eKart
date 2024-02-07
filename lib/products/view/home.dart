@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
                 child: Center(
                   
                     child: badges.Badge(
-                      badgeContent: Text(value.cartCount.toString(),style: TextStyle(fontSize: 7,color: Colors.white),),
+                      badgeContent: Text(value.cartCount.toString(),style:const TextStyle(fontSize: 7,color: Colors.white),),
                       badgeAnimation:const  badges.BadgeAnimation.slide(),
                       
                       child: Image.asset(

@@ -127,5 +127,5 @@ class ProductScreen extends StatelessWidget {
 }
 
 showAlert(BuildContext context){
-ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Item Added to cart")));
+ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item Added to cart")));
 }
