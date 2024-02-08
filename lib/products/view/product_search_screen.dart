@@ -125,7 +125,7 @@ class ProductSearchScreen extends StatelessWidget {
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     top: 8.0, right: 12),
-                                                child: InkWell(
+                                                child: InkWell( 
                                                   onTap: () {
                                                     value.wishListItem(value.productList[index]);
                                                     showSnacbar(context,value.productList[index]);
