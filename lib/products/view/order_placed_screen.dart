@@ -8,6 +8,7 @@ class OrderPlacedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 3),(){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const Home(),));});
     
     return  Scaffold(
       backgroundColor: primaryColor,

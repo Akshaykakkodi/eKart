@@ -18,6 +18,7 @@ class MenClothingScreen extends StatelessWidget {
         child: Consumer<ProductController>(
           builder: (context, value, child) => SizedBox(
         child: GridView.builder(
+          physics:const BouncingScrollPhysics(),
           itemCount: value.menClothingItems.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -69,10 +70,10 @@ class MenClothingScreen extends StatelessWidget {
                                             showSnacbar(context,index);
                                           },
                                          
-                                          child:value.isWishListed[index]?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
+                                          child:value.menClothingItems[index].isWishListed?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
                                             "assets/icons/wishlist.png",
                                           scale: 4,
-                                          // color: value.isWishListed[index]?Colors.red:Colors.grey,
+                                         
                                           ),
                                         ),
                                       ),

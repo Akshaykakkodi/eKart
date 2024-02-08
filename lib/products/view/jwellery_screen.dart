@@ -66,14 +66,16 @@ class JwelleryScreen extends StatelessWidget {
                                             top: 8.0, right: 12),
                                         child: InkWell(
                                           onTap: () {
-                                            value.wishListItem(value.productList[index]);
+                                            value.wishListItem(value.jewlleryItems[index]);
                                             showSnacbar(context,index);
                                           },
                                          
-                                          child:value.isWishListed[index]?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
+                                          child:
+                                          value.jewlleryItems[index].isWishListed?const Icon(Icons.favorite,color: Colors.red,):
+                                           Image.asset(
                                             "assets/icons/wishlist.png",
                                           scale: 4,
-                                          // color: value.isWishListed[index]?Colors.red:Colors.grey,
+                                        
                                           ),
                                         ),
                                       ),

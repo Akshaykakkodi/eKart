@@ -1,7 +1,9 @@
 import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
@@ -10,6 +12,7 @@ class WishlistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Provider.of<ProductController>(context, listen: false).fetchProducts();
     return Scaffold(
+     
       body: Container(
         width: double.infinity,
         height: double.infinity,

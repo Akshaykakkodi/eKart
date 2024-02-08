@@ -13,6 +13,7 @@ class ProductModel {
   Rating? rating;
   bool isInCart;
   num cartQuantity;
+  bool isWishListed;
   
   ProductModel({
     this.id,
@@ -23,7 +24,8 @@ class ProductModel {
     this.image,
     this.rating,
     this.isInCart=false,
-    this.cartQuantity=0
+    this.cartQuantity=0,
+    this.isWishListed=false
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
