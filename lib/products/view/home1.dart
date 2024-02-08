@@ -21,7 +21,7 @@ class HomeScreen1 extends StatelessWidget {
           slivers: [
             SliverAppBar(
               automaticallyImplyLeading: false,
-              title: const Text("ekart"),
+              title:  Text("ekart",style: TextStyle(fontStyle: FontStyle.italic,color: primaryColor,fontWeight: FontWeight.w500),),
               centerTitle: true,
               actions: [
                 InkWell(
@@ -184,7 +184,7 @@ class HomeScreen1 extends StatelessWidget {
                                                 onTap: () {
                                                   value.wishListItem(
                                                       items[index]);
-                                                  showSnacbar(context, index);
+                                                  showSnacbar(context, items[index]);
                                                 },
                                                 child: items[index].isWishListed
                                                     ? const Icon(

@@ -67,7 +67,7 @@ class JwelleryScreen extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             value.wishListItem(value.jewlleryItems[index]);
-                                            showSnacbar(context,index);
+                                            showSnacbar(context,value.jewlleryItems[index]);
                                           },
                                          
                                           child:

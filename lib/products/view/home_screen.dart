@@ -1,5 +1,6 @@
 import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/products/controller/product_controller.dart';
+import 'package:ekart/products/model/product_model.dart';
 import 'package:ekart/products/view/product_screen.dart';
 import 'package:ekart/products/view/product_search_screen.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                                                 child: InkWell(
                                                   onTap: () {
                                                     value.wishListItem(value.productList[index]);
-                                                    showSnacbar(context,index);
+                                                    showSnacbar(context,value.productList[index]);
                                                   },
                                                  
                                                   child:value.isWishListed[index]?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
@@ -170,8 +171,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 
-showSnacbar(BuildContext context, int index){
+showSnacbar(BuildContext context, ProductModel product){
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content:Provider.of<ProductController>(context,listen: false).isWishListed[index]==true?const Text("Item Added to wishlist"):const Text("Item removed from wishlist"))
+    SnackBar(content:product.isWishListed?const Text("Item Added to wishlist"):const Text("Item removed from wishlist"))
   );
 }

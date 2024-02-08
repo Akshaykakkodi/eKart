@@ -67,7 +67,7 @@ class WomenClothingScreen extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             value.wishListItem(value.womenClothingItems[index]);
-                                            showSnacbar(context,index);
+                                            showSnacbar(context,value.womenClothingItems[index]);
                                           },
                                          
                                           child:value.womenClothingItems[index].isWishListed?const Icon(Icons.favorite,color: Colors.red,): Image.asset(

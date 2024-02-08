@@ -128,7 +128,7 @@ class ProductSearchScreen extends StatelessWidget {
                                                 child: InkWell(
                                                   onTap: () {
                                                     value.wishListItem(value.productList[index]);
-                                                    showSnacbar(context,index);
+                                                    showSnacbar(context,value.productList[index]);
                                                   },
                                                  
                                                   child:value.isWishListed[index]?const Icon(Icons.favorite,color: Colors.red,): Image.asset(

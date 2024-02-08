@@ -66,7 +66,7 @@ class ElectronicsScreen extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             value.wishListItem(value.productList[index]);
-                                            showSnacbar(context,index);
+                                            showSnacbar(context,value.productList[index]);
                                           },
                                          
                                           child:value.electronicsItems[index].isWishListed?const Icon(Icons.favorite,color: Colors.red,): Image.asset(
