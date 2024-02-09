@@ -20,6 +20,7 @@ class JwelleryScreen extends StatelessWidget {
           builder: (context, value, child) => SizedBox(
         child: GridView.builder(
           itemCount: value.jewlleryItems.length,
+          physics:const BouncingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 3 / 5,

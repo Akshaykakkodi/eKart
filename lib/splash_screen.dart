@@ -1,5 +1,5 @@
 import 'package:ekart/constants/app_constants.dart';
-import 'package:ekart/products/view/home.dart';
+import 'package:ekart/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
         .then((value) => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const Home(),
+              builder: (context) => const LoginSCreen(),
             )));
     return Scaffold(
       backgroundColor: primaryColor,
