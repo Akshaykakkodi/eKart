@@ -1,3 +1,5 @@
+import 'package:ekart/login/controller/login_controller.dart';
+import 'package:ekart/login/view/login_screen.dart';
 import 'package:ekart/products/controller/product_controller.dart';
 import 'package:ekart/products/view/cart_screen.dart';
 import 'package:ekart/products/view/categories.dart';
@@ -151,16 +153,22 @@ class Home extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     )),
                 const Divider(),
-                const ListTile(
-                    leading: Icon(
-                      Icons.logout,
-                      color: Colors.grey,
-                    ),
-                    title: Text(
-                      "Logout",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    )),
+                GestureDetector(
+                  onTap: ()async {
+                   await Provider.of<LoginController>(context,listen: false).logOut();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen(),));
+                  },
+                  child: const ListTile(
+                      leading: Icon(
+                        Icons.logout,
+                        color: Colors.grey,
+                      ),
+                      title: Text(
+                        "Logout",
+                        style:
+                            TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      )),
+                ),
                 const Divider(),
               ],
             ),
