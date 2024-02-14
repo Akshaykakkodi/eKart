@@ -1,5 +1,7 @@
 import 'package:ekart/constants/app_constants.dart';
 import 'package:ekart/login/view/login_screen.dart';
+import 'package:ekart/products/view/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -8,12 +10,30 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth=FirebaseAuth.instance;
     Future.delayed(const Duration(seconds: 2))
         .then((value) => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginSCreen(),
-            )));
+              builder: (context) =>  StreamBuilder(
+                stream:auth.authStateChanges() , 
+                builder: (context, snapshot) {
+                   if (snapshot.connectionState == ConnectionState.waiting) {
+            // Still checking the user's state
+            return const CircularProgressIndicator();
+          }
+           if (snapshot.hasData) {
+            // User is logged in
+            User? user = snapshot.data;
+            return Home();
+          } else {
+            // User is not logged in
+            return const LoginSCreen();
+          }
+                },),
+            )
+            )
+            );
     return Scaffold(
       backgroundColor: primaryColor,
       body: Column(

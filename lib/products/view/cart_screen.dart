@@ -1,6 +1,8 @@
 import 'package:ekart/constants/app_constants.dart';
+import 'package:ekart/login/controller/login_controller.dart';
 import 'package:ekart/products/controller/product_controller.dart';
 import 'package:ekart/products/view/order_placed_screen.dart';
+import 'package:ekart/products/view/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,110 +37,115 @@ class CartScreen extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: value.cartItems.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              // height: 125,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: const Color(0xffDEDEDE)),
-                              child: Row(
-                                children: [
-                                  // const SizedBox(width: 10,),
-                                  Container(
-                                    width: 100,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductScreen(product: value.cartItems[index].product),));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                // height: 125,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: const Color(0xffDEDEDE)),
+                                child: Row(
+                                  children: [
+                                    // const SizedBox(width: 10,),
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Image.network(
+                                        value.cartItems[index].product.image
+                                            .toString(),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                    child: Image.network(
-                                      value.cartItems[index].product.image
-                                          .toString(),
-                                      fit: BoxFit.fill,
+                                    const SizedBox(
+                                      width: 15,
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                            child: Text(value
-                                                .cartItems[index].product.title
-                                                .toString())),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                            "\$${value.cartItems[index].product.price}"),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                value.decrementCount(value
-                                                    .cartItems[index].product);
-                                              },
-                                              child: const CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                radius: 12.5,
-                                                child: Icon(
-                                                  Icons.remove,
-                                                  color: Color(0xff8F959E),
+                                    Flexible(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              child: Text(value
+                                                  .cartItems[index].product.title
+                                                  .toString())),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              "\$${value.cartItems[index].product.price}"),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  value.decrementCount(value
+                                                      .cartItems[index].product);
+                                                },
+                                                child: const CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  radius: 12.5,
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    color: Color(0xff8F959E),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(value.cartItems[index].product
-                                                .cartQuantity
-                                                .toString()),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                value.addToCart(value
-                                                    .cartItems[index].product);
-                                              },
-                                              child: const CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                radius: 12.5,
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Color(0xff8F959E),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(value.cartItems[index].product
+                                                  .cartQuantity
+                                                  .toString()),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  value.addToCart(value
+                                                      .cartItems[index].product);
+                                                },
+                                                child: const CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  radius: 12.5,
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: Color(0xff8F959E),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            const Spacer(),
-                                            InkWell(
-                                              onTap: () {
-                                                value.removeFromCart(index);
-                                              },
-                                              child: const CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                radius: 12.5,
-                                                child: Icon(
-                                                  Icons.delete_outline,
-                                                  color: Color(0xff8F959E),
+                                              const Spacer(),
+                                              InkWell(
+                                                onTap: () {
+                                                  value.removeFromCart(index);
+                                                },
+                                                child: const CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  radius: 12.5,
+                                                  child: Icon(
+                                                    Icons.delete_outline,
+                                                    color: Color(0xff8F959E),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -150,8 +157,8 @@ class CartScreen extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    const Text(
-                        "Menalil thazham kakkodi Kozhikode Kerala india pin:673611"),
+                     Text(
+                        Provider.of<LoginController>(context).userData?["address"]??""),
                     const SizedBox(
                       height: 20,
                     ),

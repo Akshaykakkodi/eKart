@@ -20,7 +20,8 @@ class Home extends StatelessWidget {
       const Categories()
     ];
 
-    
+    Provider.of<LoginController>(context,listen: false).fetchUserData();
+    print("hello");
 
     return Consumer<ProductController>(
       builder: (context, value, child) => Scaffold(
@@ -86,91 +87,94 @@ class Home extends StatelessWidget {
           backgroundColor: Colors.white,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              children: [
-                const DrawerHeader(
-                    child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 35,
-                    ),
-                    SizedBox(height: 8,),
-                    Text("UserName",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
-                  ],
-                )),
-                const ListTile(
-                    leading: Icon(
-                      Icons.info_outline,
-                      color: Colors.grey,
-                    ),
-                    title: Text(
-                      "Account Information",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    )),
-                const Divider(),
-                ListTile(
-                    leading: Image.asset(
-                      "assets/icons/bag.png",
-                      scale: 4,
-                    ),
-                    title: const Text(
-                      "Orders",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    )),
-                const Divider(),
-                ListTile(
-                    leading: Image.asset(
-                      "assets/icons/wishlist.png",
-                      scale: 4,
-                    ),
-                    title: const Text(
-                      "Wishlist",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    )),
-                const Divider(),
-                const ListTile(
-                    leading: Icon(
-                      Icons.emoji_people,
-                      color: Colors.grey,
-                    ),
-                    title: Text(
-                      "Refer",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    )),
-                const Divider(),
-                const ListTile(
-                    leading: Icon(
-                      Icons.settings,
-                      color: Colors.grey,
-                    ),
-                    title: Text(
-                      "Settings",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    )),
-                const Divider(),
-                GestureDetector(
-                  onTap: ()async {
-                   await Provider.of<LoginController>(context,listen: false).logOut();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen(),));
-                  },
-                  child: const ListTile(
+            child: Consumer<LoginController>(
+              builder: (context, value, child) => 
+               Column(
+                children: [
+                   DrawerHeader(
+                      child: Column(
+                    children: [
+                      // CircleAvatar(
+                      //   radius: 35,
+                      // ),
+                     const SizedBox(height: 30,),
+                      Text(value.userData!["name"],style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
+                    ],
+                  )),
+                  const ListTile(
                       leading: Icon(
-                        Icons.logout,
+                        Icons.info_outline,
                         color: Colors.grey,
                       ),
                       title: Text(
-                        "Logout",
+                        "Account Information",
                         style:
                             TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                       )),
-                ),
-                const Divider(),
-              ],
+                  const Divider(),
+                  ListTile(
+                      leading: Image.asset(
+                        "assets/icons/bag.png",
+                        scale: 4,
+                      ),
+                      title: const Text(
+                        "Orders",
+                        style:
+                            TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      )),
+                  const Divider(),
+                  ListTile(
+                      leading: Image.asset(
+                        "assets/icons/wishlist.png",
+                        scale: 4,
+                      ),
+                      title: const Text(
+                        "Wishlist",
+                        style:
+                            TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      )),
+                  const Divider(),
+                  const ListTile(
+                      leading: Icon(
+                        Icons.emoji_people,
+                        color: Colors.grey,
+                      ),
+                      title: Text(
+                        "Refer",
+                        style:
+                            TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      )),
+                  const Divider(),
+                  const ListTile(
+                      leading: Icon(
+                        Icons.settings,
+                        color: Colors.grey,
+                      ),
+                      title: Text(
+                        "Settings",
+                        style:
+                            TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      )),
+                  const Divider(),
+                  GestureDetector(
+                    onTap: ()async {
+                     await Provider.of<LoginController>(context,listen: false).logOut();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen(),));
+                    },
+                    child: const ListTile(
+                        leading: Icon(
+                          Icons.logout,
+                          color: Colors.grey,
+                        ),
+                        title: Text(
+                          "Logout",
+                          style:
+                              TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        )),
+                  ),
+                  const Divider(),
+                ],
+              ),
             ),
           ),
         ),
