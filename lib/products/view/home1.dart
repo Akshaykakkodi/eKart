@@ -7,14 +7,26 @@ import 'package:ekart/products/view/product_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:shimmer/shimmer.dart';
 
-class HomeScreen1 extends StatelessWidget {
+class HomeScreen1 extends StatefulWidget {
   const HomeScreen1({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
+  State<HomeScreen1> createState() => _HomeScreen1State();
+}
+
+class _HomeScreen1State extends State<HomeScreen1> {
+  @override
+  void initState() {
     Provider.of<ProductController>(context, listen: false).fetchProducts();
+    super.initState();
+  }
+  TextEditingController searchController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    
+    
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -136,7 +148,10 @@ class HomeScreen1 extends StatelessWidget {
                   var items = searchController.text.isEmpty
                       ? value.productList
                       : value.searchResult;
-                  return InkWell(
+                  return
+
+                 
+                   InkWell(
                     onTap: () {
                       Navigator.push(
                           context,
@@ -149,7 +164,22 @@ class HomeScreen1 extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 12.0, left: 12),
                       child: SizedBox(
-                        child: Column(
+                        child:
+                        value.isLoading
+                            ? Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              )
+                            :
+                        
+                        
+                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(

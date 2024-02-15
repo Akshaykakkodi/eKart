@@ -9,19 +9,32 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List pages = [
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+   List pages = [
       const HomeScreen1(),
       const WishlistScreen(),
       const Categories()
     ];
-
+  @override
+  void initState() {
+    // TODO: implement initState
     Provider.of<LoginController>(context,listen: false).fetchUserData();
-    print("hello");
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+ 
+
+    
+  
 
     return Consumer<ProductController>(
       builder: (context, value, child) => Scaffold(

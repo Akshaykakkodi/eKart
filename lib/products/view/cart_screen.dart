@@ -6,16 +6,28 @@ import 'package:ekart/products/view/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+       
+        Provider.of<ProductController>(context,listen: false).calculateSubTotalPrice();
+     
+        Provider.of<ProductController>(context,listen: false).calculateTotalPrice();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
    
-    var amount =
-        Provider.of<ProductController>(context).calculateSubTotalPrice();
-    var totalAmount =
-        Provider.of<ProductController>(context).calculateTotalPrice();
+  
 
     return Scaffold(
       appBar: AppBar(
@@ -92,6 +104,8 @@ class CartScreen extends StatelessWidget {
                                                 onTap: () {
                                                   value.decrementCount(value
                                                       .cartItems[index].product);
+                                                      value.calculateSubTotalPrice();
+                                                      value.calculateTotalPrice();
                                                 },
                                                 child: const CircleAvatar(
                                                   backgroundColor: Colors.white,
@@ -115,6 +129,8 @@ class CartScreen extends StatelessWidget {
                                                 onTap: () {
                                                   value.addToCart(value
                                                       .cartItems[index].product);
+                                                        value.calculateSubTotalPrice();
+                                                      value.calculateTotalPrice();
                                                 },
                                                 child: const CircleAvatar(
                                                   backgroundColor: Colors.white,
@@ -178,7 +194,7 @@ class CartScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "\$${amount.toStringAsFixed(2)}",
+                          "\$${value.subTotal.toStringAsFixed(2)}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         )
@@ -212,7 +228,7 @@ class CartScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "\$${totalAmount.toStringAsFixed(2)}",
+                          "\$${value.toatalAmount.toStringAsFixed(2)}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         )

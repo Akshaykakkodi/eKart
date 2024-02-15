@@ -4,6 +4,7 @@ import 'package:ekart/login/view/registration_screen.dart';
 import 'package:ekart/products/view/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends ChangeNotifier {
   bool isSendingCode = false;
@@ -159,4 +160,12 @@ class LoginController extends ChangeNotifier {
       print(e);
     }
   }
+
+
+  saveUserCredential()async{
+    SharedPreferences spref=await SharedPreferences.getInstance();
+    String userId= FirebaseAuth.instance.currentUser!.uid;
+    spref.setString("UserId", userId);
+  }
+
 }

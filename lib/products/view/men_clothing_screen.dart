@@ -4,12 +4,23 @@ import 'package:ekart/products/view/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MenClothingScreen extends StatelessWidget {
+class MenClothingScreen extends StatefulWidget {
   const MenClothingScreen({super.key});
 
   @override
+  State<MenClothingScreen> createState() => _MenClothingScreenState();
+}
+
+class _MenClothingScreenState extends State<MenClothingScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+     Provider.of<ProductController>(context,listen: false).fetchMensClothingProducts();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    Provider.of<ProductController>(context).fetchMensClothingProducts();
+   
     return  Scaffold(
       body:Container(
         width: double.infinity,

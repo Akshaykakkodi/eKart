@@ -6,13 +6,25 @@ import 'package:ekart/products/view/product_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController searchController=TextEditingController();
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
     Provider.of<ProductController>(context, listen: false).fetchProducts();
+
+    super.initState();
+  }
+  TextEditingController searchController=TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Container(
         width: double.infinity,

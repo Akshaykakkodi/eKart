@@ -193,12 +193,15 @@ class ProductController extends ChangeNotifier {
     for (var cartItem in cartItems) {
       subTotal += cartItem.product.price! * cartItem.quantity;
     }
+    notifyListeners();
     return subTotal;
+    
   }
 
   num calculateTotalPrice() {
     toatalAmount = 0;
     toatalAmount = subTotal + deliveryCharge;
+    notifyListeners();
     return toatalAmount;
   }
 

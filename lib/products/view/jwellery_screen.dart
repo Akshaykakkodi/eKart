@@ -5,12 +5,23 @@ import 'package:ekart/products/view/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class JwelleryScreen extends StatelessWidget {
+class JwelleryScreen extends StatefulWidget {
   const JwelleryScreen({super.key});
 
   @override
+  State<JwelleryScreen> createState() => _JwelleryScreenState();
+}
+
+class _JwelleryScreenState extends State<JwelleryScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+     Provider.of<ProductController>(context,listen: false).fetchJwelleryProducts();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    Provider.of<ProductController>(context,listen: false).fetchJwelleryProducts();
+   
     return  Scaffold(
       body: Container(
         width: double.infinity,

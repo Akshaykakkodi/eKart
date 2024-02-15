@@ -1,9 +1,11 @@
 import 'package:ekart/constants/app_constants.dart';
+import 'package:ekart/login/controller/login_controller.dart';
 import 'package:ekart/login/view/login_screen.dart';
 import 'package:ekart/products/view/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -24,8 +26,7 @@ class SplashScreen extends StatelessWidget {
           }
            if (snapshot.hasData) {
             // User is logged in
-            User? user = snapshot.data;
-            return Home();
+            return const Home();
           } else {
             // User is not logged in
             return const LoginSCreen();

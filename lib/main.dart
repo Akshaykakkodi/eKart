@@ -1,4 +1,6 @@
 import 'package:ekart/login/controller/login_controller.dart';
+import 'package:ekart/onboarding/controller/onboarding_controller.dart';
+import 'package:ekart/onboarding/view/intro_screen_1.dart';
 import 'package:ekart/products/controller/product_controller.dart';
 import 'package:ekart/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +24,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => LoginController(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => OnboardingController(),
       )
     ], child: const MyApp()));
   } catch (e) {
@@ -41,7 +46,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const IntroScreen1(),
       debugShowCheckedModeBanner: false,
     );
   }
